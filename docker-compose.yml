@@ -1,0 +1,24 @@
+version: '3.1'
+
+services:
+    mysql:
+        image: mysql:8.0.3
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: airflow
+            MYSQL_USER: airflow
+            MYSQL_PASSWORD: airflow
+
+    airflow:
+        image: rdonnarumma/airflow-gcp:latest
+        restart: always
+        depends_on:
+            - mysql
+        ports:
+            - "8080:8080"
+        #healthcheck:
+        #test: ["CMD-SHELL", "[ -f /usr/local/airflow/airflow-webserver.pid ]"]
+        #interval: 30s
+        #timeout: 30s
+        #retries: 3
