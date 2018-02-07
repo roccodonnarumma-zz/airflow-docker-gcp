@@ -10,24 +10,15 @@ services:
             MYSQL_USER: airflow
             MYSQL_PASSWORD: airflow
 
-    rabbitmq:
-        image: rabbitmq:3.7.3
-        hostname: rabbitmq
-        restart: always
-        environment:
-            RABBITMQ_DEFAULT_USER: rabbitmq
-            RABBITMQ_DEFAULT_PASS: rabbitmq
-
     webserver:
         image: rdonnarumma/airflow-gcp:latest
         restart: always
         depends_on:
             - mysql
-            - rabbitmq
         ports:
             - "8080:8080"
         environment:
-            - EXECUTOR=Celery
+            - EXECUTOR=Local
         command: webserver
         #healthcheck:
         #test: ["CMD-SHELL", "[ -f /usr/local/airflow/airflow-webserver.pid ]"]
@@ -41,25 +32,5 @@ services:
         depends_on:
             - webserver
         environment:
-            - EXECUTOR=Celery
+            - EXECUTOR=Local
         command: scheduler
-
-    flower:
-        image: rdonnarumma/airflow-gcp:latest
-        restart: always
-        depends_on:
-            - webserver
-        ports:
-            - "5555:5555"
-        environment:
-            - EXECUTOR=Celery
-        command: flower
-
-    worker:
-        image: rdonnarumma/airflow-gcp:latest
-        restart: always
-        depends_on:
-            - scheduler
-        environment:
-            - EXECUTOR=Celery
-        command: worker
