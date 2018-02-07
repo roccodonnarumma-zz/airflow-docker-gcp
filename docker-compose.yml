@@ -1,20 +1,9 @@
 version: '3.1'
 
 services:
-    mysql:
-        image: mysql:8.0.3
-        restart: always
-        environment:
-            MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: airflow
-            MYSQL_USER: airflow
-            MYSQL_PASSWORD: airflow
-
     webserver:
         image: rdonnarumma/airflow-gcp:latest
         restart: always
-        depends_on:
-            - mysql
         ports:
             - "8080:8080"
         environment:
@@ -25,12 +14,3 @@ services:
         #interval: 30s
         #timeout: 30s
         #retries: 3
-    
-    scheduler:
-        image: rdonnarumma/airflow-gcp:latest
-        restart: always
-        depends_on:
-            - webserver
-        environment:
-            - EXECUTOR=Local
-        command: scheduler
