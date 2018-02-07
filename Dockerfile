@@ -19,15 +19,20 @@ RUN pip install setuptools \
     && pip install airflow[celery,gcp_api,mysql,rabbitmq] \
     && pip install MySQL-python
 
+RUN pip uninstall -y librabbitmq
+
+RUN useradd -ms /bin/bash -d ${AIRFLOW_HOME} airflow
+
 ADD airflow.cfg ${AIRFLOW_HOME}/airflow.cfg
 RUN chmod 777 ${AIRFLOW_HOME}/airflow.cfg
 
 ADD dags/ ${AIRFLOW_HOME}/dags
 RUN chmod 777 -R ${AIRFLOW_HOME}/dags
 
-ADD entrypoint.sh /root/entrypoint.sh
-RUN chmod 777 /root/entrypoint.sh
+ADD entrypoint.sh ${AIRFLOW_HOME}/entrypoint.sh
+RUN chmod 777 ${AIRFLOW_HOME}/entrypoint.sh
 
 EXPOSE 8080 5555 8793
 
-ENTRYPOINT ["/root/entrypoint.sh"]
+USER airflow
+ENTRYPOINT ["/usr/local/airflow/entrypoint.sh"]

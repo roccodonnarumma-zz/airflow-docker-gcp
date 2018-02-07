@@ -34,3 +34,32 @@ services:
         #interval: 30s
         #timeout: 30s
         #retries: 3
+    
+    scheduler:
+        image: rdonnarumma/airflow-gcp:latest
+        restart: always
+        depends_on:
+            - webserver
+        environment:
+            - EXECUTOR=Celery
+        command: scheduler
+
+    flower:
+        image: rdonnarumma/airflow-gcp:latest
+        restart: always
+        depends_on:
+            - webserver
+        ports:
+            - "5555:5555"
+        environment:
+            - EXECUTOR=Celery
+        command: flower
+
+    worker:
+        image: rdonnarumma/airflow-gcp:latest
+        restart: always
+        depends_on:
+            - scheduler
+        environment:
+            - EXECUTOR=Celery
+        command: worker
