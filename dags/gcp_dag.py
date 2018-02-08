@@ -3,6 +3,7 @@ from airflow.operators.bash_operator import BashOperator
 from airflow.contrib.operators.bigquery_operator import BigQueryOperator
 from airflow.contrib.operators.bigquery_to_gcs import BigQueryToCloudStorageOperator
 from datetime import datetime, timedelta
+import os
 
 default_args = {
     'owner': 'airflow',
@@ -15,11 +16,11 @@ default_args = {
     'retry_delay': timedelta(minutes=5),
 }
 
-PROJECT_ID = 'gcp-rocco'
+PROJECT_ID = os.environ['GCP_PROJECT']
 CONNECTION_ID = 'google_cloud_connection'
 BQ_DATASET_NAME = 'github_licenses'
 BQ_TABLE_NAME = 'license'
-GCS_BUCKET_ID = 'gcp-rocco'
+GCS_BUCKET_ID = os.environ['GCS_BUCKET_ID']
 
 with DAG('gcp_dag', schedule_interval=timedelta(days=1), default_args=default_args) as dag:
     table_name = PROJECT_ID + '.' + BQ_DATASET_NAME + '.' + BQ_TABLE_NAME

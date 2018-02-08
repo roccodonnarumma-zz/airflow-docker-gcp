@@ -5,6 +5,7 @@ from airflow.operators.python_operator import PythonOperator
 from airflow.models import Connection
 from airflow import settings
 import json
+import os
 
 def add_gcp_connection(ds, **kwargs):
     """"Add a airflow connection for GCP"""
@@ -22,8 +23,8 @@ def add_gcp_connection(ds, **kwargs):
     ]
     conn_extra = {
         "extra__google_cloud_platform__scope": ",".join(scopes),
-        "extra__google_cloud_platform__project": "gcp-rocco",
-        "extra__google_cloud_platform__key_path": '/usr/local/airflow/service-account.json'
+        "extra__google_cloud_platform__project": os.environ['GCP_PROJECT'],
+        "extra__google_cloud_platform__key_path": '/usr/local/airflow/iam/service-account.json'
     }
     conn_extra_json = json.dumps(conn_extra)
     new_conn.set_extra(conn_extra_json)

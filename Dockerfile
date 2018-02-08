@@ -1,5 +1,5 @@
 FROM python:2.7.14-stretch
-MAINTAINER rdonnarumma
+MAINTAINER roccodonnarumma
 
 ARG AIRFLOW_VERSION=1.8.0
 ARG AIRFLOW_HOME=/usr/local/airflow
@@ -12,6 +12,7 @@ RUN apt-get update -y \
 RUN apt-get install -y python-dev \
     python-pip \
     build-essential \
+    mysql-client \
     git \
     curl
 
@@ -35,9 +36,6 @@ RUN chmod 777 -R ${AIRFLOW_HOME}/dags
 
 ADD entrypoint.sh ${AIRFLOW_HOME}/entrypoint.sh
 RUN chmod 777 ${AIRFLOW_HOME}/entrypoint.sh
-
-ADD gcp-rocco-a474c643b2f1.json ${AIRFLOW_HOME}/service-account.json
-RUN chmod 777 ${AIRFLOW_HOME}/service-account.json
 
 EXPOSE 8080 5555 8793
 
