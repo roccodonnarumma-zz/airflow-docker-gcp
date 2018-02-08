@@ -1,6 +1,6 @@
 # airflow-docker-gcp
 
-This branch runs Airflow in **LocalExecutor** mode. Please refer to other branches for more configurations.
+This branch runs Airflow in **CeleryExecutor** mode. Please refer to other branches for more configurations.
 
 This repository contains a **Dockerfile** of [apache-airflow](https://github.com/apache/incubator-airflow) 1.8.0 for [Google Cloud Platform](https://www.cloud.google.com) published to the public [Docker Hub Registry](https://registry.hub.docker.com/).
 
