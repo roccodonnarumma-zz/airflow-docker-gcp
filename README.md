@@ -7,8 +7,7 @@ This repository contains a **Dockerfile** of [apache-airflow](https://github.com
 ## Info
 
 * Based on Python (2.7.14) Stretch Image [python:2.7.14-stretch](https://hub.docker.com/_/python/)
-* Uses [MySQL](https://hub.docker.com/_/mysql/) as backend
-* Uses [RabbitMQ](https://hub.docker.com/_/rabbitmq/) as queue
+* Uses [Cloud SQL](https://cloud.google.com/sql/) as backend
 
 ## Installation
 
