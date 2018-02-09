@@ -16,13 +16,13 @@ This repository contains a **Dockerfile** of [apache-airflow](https://github.com
 
 Pull the image from the Docker repository.
 
-        docker pull roccodonnarumma/airflow-gcp
+        docker pull roccodonnarumma/airflow-gcp:1.8.0-gcp
 
 ## Build
 
 In case you need to customize it, edit the Dockerfile and then build it.
 
-        docker build --rm -t roccodonnarumma/airflow-gcp .
+        docker build --rm -t roccodonnarumma/airflow-gcp:1.8.0-gcp .
 
 ## Usage
 
@@ -55,12 +55,3 @@ Bring the cluster up:
 ## UI Links
 
 - Airflow: [localhost:8080](http://localhost:8080/)
-
-
-## Scale the number of workers
-
-Easy scaling using docker-compose:
-
-        docker-compose scale worker=5
-
-This can be used to scale to a multi node setup using kubernetes.
