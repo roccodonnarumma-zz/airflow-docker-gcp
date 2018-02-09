@@ -1,9 +1,19 @@
 version: '3.1'
 
 services:
+    rabbitmq:
+        image: rabbitmq:3.7.3
+        hostname: rabbitmq
+        restart: always
+        environment:
+            RABBITMQ_DEFAULT_USER: rabbitmq
+            RABBITMQ_DEFAULT_PASS: rabbitmq
+
     webserver:
         image: roccodonnarumma/airflow-gcp:1.8.0-gcp
         restart: always
+        depends_on:
+            - rabbitmq
         volumes:
             - ./iam/:/usr/local/airflow/iam 
         ports:
@@ -20,3 +30,44 @@ services:
         #interval: 30s
         #timeout: 30s
         #retries: 3
+
+    scheduler:
+        image: roccodonnarumma/airflow-gcp:1.8.0-base
+        restart: always
+        depends_on:
+            - webserver
+        environment:
+            - EXECUTOR=Local
+            - GCP_PROJECT=gcp-rocco
+            - GCP_REGION=us-central1
+            - GCP_DATABASE_INSTANCE_NAME=airflow-gcp
+            - GCS_BUCKET_ID=gcp-rocco
+        command: scheduler
+
+    flower:
+        image: roccodonnarumma/airflow-gcp:1.8.0-base
+        restart: always
+        depends_on:
+            - webserver
+        ports:
+            - "5555:5555"
+        environment:
+            - EXECUTOR=Local
+            - GCP_PROJECT=gcp-rocco
+            - GCP_REGION=us-central1
+            - GCP_DATABASE_INSTANCE_NAME=airflow-gcp
+            - GCS_BUCKET_ID=gcp-rocco
+        command: flower
+
+    worker:
+        image: roccodonnarumma/airflow-gcp:1.8.0-base
+        restart: always
+        depends_on:
+            - scheduler
+        environment:
+            - EXECUTOR=Local
+            - GCP_PROJECT=gcp-rocco
+            - GCP_REGION=us-central1
+            - GCP_DATABASE_INSTANCE_NAME=airflow-gcp
+            - GCS_BUCKET_ID=gcp-rocco
+        command: worker
