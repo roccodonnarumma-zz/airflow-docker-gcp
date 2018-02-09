@@ -16,6 +16,12 @@ case "$1" in
     airflow initdb
     echo "starting webserver" 
     
+    if [ "${AIRFLOW__CORE__EXECUTOR}" = "LocalExecutor" ];
+    then
+      echo "starting scheduler"
+      nohup airflow scheduler > ${AIRFLOW_HOME}/logs/scheduler.logs &
+    fi
+
     airflow run add_gcp_connection add_gcp_connection_python 2018-01-10
     nohup airflow webserver > ${AIRFLOW_HOME}/logs/webserver.logs
     echo "done"
