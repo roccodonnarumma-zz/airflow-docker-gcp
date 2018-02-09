@@ -12,7 +12,7 @@ services:
             - EXECUTOR=Local
             - GCP_PROJECT=gcp-rocco
             - GCP_REGION=us-central1
-            - GCP_DATABASE_INSTANCE_NAME=airflow
+            - GCP_DATABASE_INSTANCE_NAME=airflow-gcp
             - GCS_BUCKET_ID=gcp-rocco
         command: webserver
         #healthcheck:

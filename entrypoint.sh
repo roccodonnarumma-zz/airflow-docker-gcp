@@ -9,7 +9,11 @@ nohup /opt/cloud_sql_proxy/cloud_sql_proxy -instances=${GCP_PROJECT}:${GCP_REGIO
 
 case "$1" in
   webserver)
+    sleep 4
+    echo "Creating database airflow"
     mysql -h 127.0.0.1 -u root -e "CREATE DATABASE airflow CHARACTER SET utf8 COLLATE utf8_unicode_ci;"
+    sleep 4
+    echo "Creating user airflow"
     mysql -h 127.0.0.1 -u root -e "grant all on airflow.* TO 'airflow'@'%' IDENTIFIED BY 'airflow';"
 
     echo "init db"
