@@ -16,13 +16,13 @@ This repository contains a **Dockerfile** of [apache-airflow](https://github.com
 
 Pull the image from the Docker repository.
 
-        docker pull roccodonnarumma/airflow-gcp
+        docker pull roccodonnarumma/airflow-gcp:1.8.0-gcp
 
 ## Build
 
 In case you need to customize it, edit the Dockerfile and then build it.
 
-        docker build --rm -t roccodonnarumma/airflow-gcp .
+        docker build --rm -t roccodonnarumma/airflow-gcp:1.8.0-gcp .
 
 ## Usage
 
@@ -55,6 +55,7 @@ Bring the cluster up:
 ## UI Links
 
 - Airflow: [localhost:8080](http://localhost:8080/)
+- Flower: [localhost:5555] (http://localhost:5555/)
 
 
 ## Scale the number of workers
