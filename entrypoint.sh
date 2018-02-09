@@ -33,6 +33,3 @@ case "$1" in
     exec "$@"
     ;;
 esac
-
-#nohup airflow webserver $* >> ${AIRFLOW_HOME}/logs/webserver.logs &
-#nohup airflow scheduler >> ${AIRFLOW_HOME}/logs/scheduler.logs &
