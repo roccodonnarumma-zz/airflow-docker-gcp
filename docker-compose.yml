@@ -11,7 +11,7 @@ services:
             MYSQL_PASSWORD: airflow
 
     webserver:
-        image: roccodonnarumma/airflow-gcp:latest
+        image: roccodonnarumma/airflow-gcp:1.8.0-base
         restart: always
         depends_on:
             - mysql
