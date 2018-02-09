@@ -17,13 +17,13 @@ This repository contains a **Dockerfile** of [apache-airflow](https://github.com
 
 Pull the image from the Docker repository.
 
-        docker pull roccodonnarumma/airflow-gcp
+        docker pull roccodonnarumma/airflow-gcp:1.8.0-base
 
 ## Build
 
 In case you need to customize it, edit the Dockerfile and then build it.
 
-        docker build --rm -t roccodonnarumma/airflow-gcp .
+        docker build --rm -t roccodonnarumma/airflow-gcp:1.8.0-base .
 
 ## Usage
 
