@@ -10,4 +10,5 @@ chmod 777 iam/service-account.json
 
 gcloud projects add-iam-policy-binding gcp-rocco --member=serviceAccount:airflow-service-account@$1.iam.gserviceaccount.com --role=roles/bigquery.dataEditor
 gcloud projects add-iam-policy-binding gcp-rocco --member=serviceAccount:airflow-service-account@$1.iam.gserviceaccount.com --role=roles/bigquery.user
+gcloud projects add-iam-policy-binding gcp-rocco --member=serviceAccount:airflow-service-account@$1.iam.gserviceaccount.com --role=roles/bigquery.admin
 gcloud projects add-iam-policy-binding gcp-rocco --member=serviceAccount:airflow-service-account@$1.iam.gserviceaccount.com --role=roles/storage.objectAdmin
